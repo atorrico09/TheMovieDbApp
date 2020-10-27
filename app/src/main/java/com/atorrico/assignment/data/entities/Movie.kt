@@ -9,7 +9,7 @@ data class Movie (
     val popularity : Double,
     val vote_count : Int,
     val video : Boolean,
-    val media_type : String,
+//    val media_type : String,
     @PrimaryKey
     val id : Int,
     val adult : Boolean,

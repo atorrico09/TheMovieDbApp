@@ -62,9 +62,9 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener {
 
     override fun onClickedMovie(movieId: Int) {
         Toast.makeText(requireContext(), "Clicked movie: $movieId", Toast.LENGTH_SHORT).show()
-//        findNavController().navigate(
-//            R.id.action_moviesFragment_to_movieDetailFragment,
-//            bundleOf("id" to movieId)
-//        )
+        findNavController().navigate(
+            R.id.action_moviesFragment_to_movieDetailFragment,
+            bundleOf("id" to movieId)
+        )
     }
 }
