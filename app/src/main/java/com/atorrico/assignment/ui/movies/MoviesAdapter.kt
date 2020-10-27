@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.databinding.ItemMovieBinding
+import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
@@ -47,10 +48,10 @@ class MovieViewHolder(private val itemBinding: ItemMovieBinding, private val lis
     fun bind(item: Movie) {
         this.movie = item
         itemBinding.tvTitle.text = item.title
-//        Glide.with(itemBinding.root)
-//            .load(item.image)
-//            .transform(CircleCrop())
-//            .into(itemBinding.image)
+
+        Glide.with(itemBinding.root)
+            .load(BASE_URL_IMAGES + item.backdrop_path)
+            .into(itemBinding.imgBackdrop)
     }
 
     override fun onClick(v: View?) {
