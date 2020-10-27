@@ -46,7 +46,7 @@ class MovieViewHolder(private val itemBinding: ItemMovieBinding, private val lis
     @SuppressLint("SetTextI18n")
     fun bind(item: Movie) {
         this.movie = item
-        itemBinding.name.text = item.title
+        itemBinding.tvTitle.text = item.title
 //        Glide.with(itemBinding.root)
 //            .load(item.image)
 //            .transform(CircleCrop())
