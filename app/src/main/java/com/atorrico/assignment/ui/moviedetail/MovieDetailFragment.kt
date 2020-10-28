@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
+import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES
 import com.atorrico.assignment.utils.Resource
 import com.atorrico.assignment.utils.autoCleared
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,9 +61,8 @@ class MovieDetailFragment : Fragment() {
         binding.tvYear.text = movie.release_date
         binding.tvOverview.text = movie.overview
 
-//        Glide.with(binding.root)
-//            .load(movie.image)
-//            .transform(CircleCrop())
-//            .into(binding.image)
+        Glide.with(binding.root)
+            .load(BASE_URL_IMAGES + movie.poster_path)
+            .into(binding.imgPoster)
     }
 }
