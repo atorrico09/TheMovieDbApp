@@ -15,6 +15,7 @@ import com.atorrico.assignment.utils.Resource
 import com.atorrico.assignment.utils.autoCleared
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 
 @AndroidEntryPoint
 class MovieDetailFragment : Fragment() {
@@ -58,11 +59,21 @@ class MovieDetailFragment : Fragment() {
 
     private fun bindMovie(movie: Movie) {
         binding.tvTitle.text = movie.title
-        binding.tvYear.text = movie.release_date
+        binding.tvYear.text = getYear(movie.release_date)
         binding.tvOverview.text = movie.overview
 
         Glide.with(binding.root)
             .load(BASE_URL_IMAGES + movie.poster_path)
             .into(binding.imgPoster)
+    }
+
+    private fun getYear(releaseDate: String): String {
+        val year = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDate.parse(releaseDate).year.toString()
+        } else {
+            releaseDate.split("-")[0]
+        }
+
+        return year
     }
 }
