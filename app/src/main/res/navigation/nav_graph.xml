@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.atorrico.assignment.ui.movies.MoviesFragment"
-        android:label="@string/app_name"
+        android:label="@string/main_title"
         tools:layout="@layout/fragment_movies" >
         <action
             android:id="@+id/action_moviesFragment_to_movieDetailFragment"
