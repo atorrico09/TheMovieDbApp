@@ -1,5 +1,6 @@
 package com.atorrico.assignment.ui.movies
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +16,10 @@ import com.atorrico.assignment.R
 import com.atorrico.assignment.databinding.FragmentMoviesBinding
 import com.atorrico.assignment.utils.Resource
 import com.atorrico.assignment.utils.autoCleared
+import com.atorrico.assignment.utils.getDominantColor
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 @AndroidEntryPoint
 class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener {
@@ -34,6 +38,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setToolbarProperties()
         setupRecyclerView()
         setupObservers()
     }
@@ -66,4 +71,11 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener {
             bundleOf("id" to movieId)
         )
     }
+
+    private fun setToolbarProperties() {
+        val collapsing: View? = activity?.findViewById(R.id.collapsing_toolbar_layout)
+        collapsing?.setBackgroundColor(Color.BLACK)
+        collapsing?.imgToolbar?.visibility = View.GONE
+    }
+
 }

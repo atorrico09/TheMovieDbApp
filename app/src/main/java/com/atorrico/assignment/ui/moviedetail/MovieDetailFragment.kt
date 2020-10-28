@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.atorrico.assignment.R
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
 import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES
@@ -20,6 +21,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_movie_detail.view.*
 
 
 @AndroidEntryPoint
@@ -40,6 +43,8 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt("id")?.let { viewModel.start(it) }
         setupObservers()
+
+
     }
 
     private fun setupObservers() {
@@ -72,9 +77,11 @@ class MovieDetailFragment : Fragment() {
             .load(BASE_URL_IMAGES + movie.poster_path)
             .into(object : CustomTarget<Bitmap>(){
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    binding.imgPoster.setImageBitmap(resource)
-                    view?.setBackgroundColor(getDominantColor(resource))
+                    val dominantColor = getDominantColor(resource)
+                    view?.nested_detail?.setBackgroundColor(dominantColor)
+                    setToolbarProperties(dominantColor, resource)
                 }
+
                 override fun onLoadCleared(placeholder: Drawable?) {
                     // this is called when imageView is cleared on lifecycle call or for
                     // some other reason.
@@ -82,6 +89,13 @@ class MovieDetailFragment : Fragment() {
                     // clear it here as you can no longer have the bitmap
                 }
             })
+    }
+
+    private fun setToolbarProperties(dominantColor: Int, resource: Bitmap) {
+        val collapsing: View? = activity?.findViewById(R.id.collapsing_toolbar_layout)
+        collapsing?.imgToolbar?.setImageBitmap(resource)
+        collapsing?.imgToolbar?.visibility = View.VISIBLE
+        collapsing?.setBackgroundColor(dominantColor)
     }
 
 }
