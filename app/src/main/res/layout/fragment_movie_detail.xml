@@ -55,14 +55,18 @@
 
         <Button
             android:id="@+id/btnSuscribe"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vertical_margin_default"
-            android:text="SUSCRIBE"
+            android:text="SUBSCRIBE"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvYear"
-            style="@style/AppTheme.RoundedCornerMaterialButton"/>
+            style="?attr/materialButtonOutlinedStyle"
+            app:strokeColor="@color/black"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Circle"
+            />
 
         <TextView
             android:id="@+id/tvOverviewTitle"

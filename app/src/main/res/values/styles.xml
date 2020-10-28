@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:background">@drawable/outline_shape</item>
+    <style name="ShapeAppearanceOverlay.MyApp.Button.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>
