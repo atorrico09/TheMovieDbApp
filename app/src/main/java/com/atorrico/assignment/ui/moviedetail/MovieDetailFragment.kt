@@ -1,5 +1,6 @@
 package com.atorrico.assignment.ui.moviedetail
 
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -7,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.atorrico.assignment.R
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
@@ -23,7 +26,9 @@ import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import kotlinx.android.synthetic.main.fragment_movie_detail.view.*
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -55,21 +60,9 @@ class MovieDetailFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.movie.observe(viewLifecycleOwner, {
-            when (it.status) {
-                Resource.Status.SUCCESS -> {
-                    bindMovie(it.data!!)
-                    binding.progressBar.visibility = View.GONE
-                    binding.movieCl.visibility = View.VISIBLE
-                }
-
-                Resource.Status.ERROR ->
-                    Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
-
-                Resource.Status.LOADING -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.movieCl.visibility = View.GONE
-                }
-            }
+            bindMovie(it!!)
+            binding.progressBar.visibility = View.GONE
+            binding.movieCl.visibility = View.VISIBLE
         })
     }
 
@@ -77,6 +70,17 @@ class MovieDetailFragment : Fragment() {
         binding.tvTitle.text = movie.title
         binding.tvYear.text = getYear(movie.release_date)
         binding.tvOverview.text = movie.overview
+        if (movie.subscribe){
+            binding.btnSuscribe.text = resources.getString(R.string.suscribed)
+            binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.transparent))
+        }
+        else{
+            binding.btnSuscribe.text = resources.getString(R.string.suscribe)
+            binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), android.R.color.transparent))
+            binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        }
+
 
         Glide.with(this)
             .asBitmap()
@@ -89,12 +93,15 @@ class MovieDetailFragment : Fragment() {
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    // this is called when imageView is cleared on lifecycle call or for
-                    // some other reason.
-                    // if you are referencing the bitmap somewhere else too other than this imageView
-                    // clear it here as you can no longer have the bitmap
                 }
             })
+
+        btnSuscribe.setOnClickListener{
+            lifecycleScope.launch {
+                movie.subscribe = !movie.subscribe
+                viewModel.update(movie)
+            }
+        }
     }
 
     private fun setToolbarProperties(dominantColor: Int, resource: Bitmap) {

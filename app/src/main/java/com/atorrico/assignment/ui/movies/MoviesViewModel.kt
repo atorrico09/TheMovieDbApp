@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.atorrico.assignment.data.repository.MovieRepository
 
 class MoviesViewModel @ViewModelInject constructor(
-    private val repository: MovieRepository
+    repository: MovieRepository
 ) : ViewModel() {
 
     val movies = repository.getMovies()
+    val myMovies = repository.getMyMovies()
+
 }

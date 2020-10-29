@@ -18,11 +18,15 @@ class MovieDetailViewModel @ViewModelInject constructor(
     private val _movie = _id.switchMap { id ->
         repository.getMovie(id)
     }
-    val movie: LiveData<Resource<Movie>> = _movie
+    val movie: LiveData<Movie> = _movie
 
 
     fun start(id: Int) {
         _id.value = id
+    }
+
+    suspend fun update (movie: Movie){
+        repository.updateMovie(movie)
     }
 
 }

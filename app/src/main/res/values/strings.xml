@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">TheMovieDbApp</string>
     <string name="main_title">The Movie App</string>
+
+    <string name="suscribe">SUBSCRIBE</string>
+    <string name="suscribed">SUBSCRIBED</string>
+
 </resources>
