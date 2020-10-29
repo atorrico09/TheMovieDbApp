@@ -2,12 +2,12 @@ package com.atorrico.assignment.ui.movies
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -16,8 +16,8 @@ import com.atorrico.assignment.R
 import com.atorrico.assignment.databinding.FragmentMoviesBinding
 import com.atorrico.assignment.utils.Resource
 import com.atorrico.assignment.utils.autoCleared
-import com.atorrico.assignment.utils.getDominantColor
-import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -27,6 +27,13 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener {
     private var binding: FragmentMoviesBinding by autoCleared()
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MoviesAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300.toLong()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +73,10 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener {
     }
 
     override fun onClickedMovie(movieId: Int) {
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = 175.toLong()
+        }
+
         findNavController().navigate(
             R.id.action_moviesFragment_to_movieDetailFragment,
             bundleOf("id" to movieId)

@@ -21,5 +21,5 @@ fun getDominantColor(bitmap: Bitmap?): Int {
     val swatchesTemp = Palette.from(bitmap!!).generate().swatches
     val swatches: List<Palette.Swatch> = ArrayList(swatchesTemp)
     Collections.sort(swatches) { swatch1, swatch2 -> swatch2!!.population - swatch1!!.population }
-    return if (swatches.isNotEmpty()) swatches[0].rgb else Color.BLUE
+    return if (swatches.isNotEmpty()) swatches[0].rgb else Color.BLACK
 }

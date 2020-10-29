@@ -20,6 +20,7 @@ import com.atorrico.assignment.utils.getYear
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_movie_detail.view.*
@@ -30,6 +31,13 @@ class MovieDetailFragment : Fragment() {
 
     private var binding: FragmentMovieDetailBinding by autoCleared()
     private val viewModel: MovieDetailViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300.toLong()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,8 +51,6 @@ class MovieDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getInt("id")?.let { viewModel.start(it) }
         setupObservers()
-
-
     }
 
     private fun setupObservers() {
