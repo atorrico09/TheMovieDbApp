@@ -29,12 +29,12 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
     private lateinit var adapter: MoviesAdapter
     private lateinit var adapter_my_movies: MyMoviesAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enterTransition = MaterialFadeThrough().apply {
-            duration = 300.toLong()
-        }
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        enterTransition = MaterialFadeThrough().apply {
+//            duration = 300.toLong()
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
