@@ -48,6 +48,7 @@ class MovieViewHolder(private val itemBinding: ItemMovieBinding, private val lis
     fun bind(item: Movie) {
         this.movie = item
         itemBinding.tvTitle.text = item.title
+        itemBinding.tvGenre.text = item.genre_ids[0].toString()
 
         Glide.with(itemBinding.root)
             .load(BASE_URL_IMAGES + item.backdrop_path)
