@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.data.entities.Movie
+import com.atorrico.assignment.data.entities.MovieWithGenre
 import com.atorrico.assignment.databinding.ItemMovieBinding
 import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
 class MoviesAdapter(private val listener: MovieItemListener) : RecyclerView.Adapter<MovieViewHolder>() {
 
@@ -17,9 +17,9 @@ class MoviesAdapter(private val listener: MovieItemListener) : RecyclerView.Adap
         fun onClickedMovie(movieId: Int)
     }
 
-    private val items = ArrayList<Movie>()
+    private val items = ArrayList<MovieWithGenre>()
 
-    fun setItems(items: ArrayList<Movie>) {
+    fun setItems(items: ArrayList<MovieWithGenre>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
@@ -38,17 +38,17 @@ class MoviesAdapter(private val listener: MovieItemListener) : RecyclerView.Adap
 class MovieViewHolder(private val itemBinding: ItemMovieBinding, private val listener: MoviesAdapter.MovieItemListener) : RecyclerView.ViewHolder(itemBinding.root),
     View.OnClickListener {
 
-    private lateinit var movie: Movie
+    private lateinit var movie: MovieWithGenre
 
     init {
         itemBinding.root.setOnClickListener(this)
     }
 
     @SuppressLint("SetTextI18n")
-    fun bind(item: Movie) {
+    fun bind(item: MovieWithGenre) {
         this.movie = item
         itemBinding.tvTitle.text = item.title
-        itemBinding.tvGenre.text = item.genre_ids[0].toString()
+        itemBinding.tvGenre.text = item.genre_name
 
         Glide.with(itemBinding.root)
             .load(BASE_URL_IMAGES + item.backdrop_path)

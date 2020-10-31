@@ -1,28 +1,31 @@
 package com.atorrico.assignment.ui.moviedetail
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.data.repository.MovieRepository
-import com.atorrico.assignment.utils.Resource
+import com.atorrico.assignment.utils.Result
+import com.atorrico.assignment.utils.mapSuccess
+import kotlinx.coroutines.Dispatchers
 
 class MovieDetailViewModel @ViewModelInject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _id = MutableLiveData<Int>()
+    private var id: Int = 0
 
-    private val _movie = _id.switchMap { id ->
-        repository.getMovie(id)
+    fun fetchMovie() = liveData(Dispatchers.IO) {
+        emit(Result.Loading())
+        try{
+            val movie = repository.getMovie(id).mapSuccess { it }
+            emit(Result.Success(movie))
+        }catch (e: Exception){
+//            emit(Result.Failure(e))
+        }
     }
-    val movie: LiveData<Movie> = _movie
-
 
     fun start(id: Int) {
-        _id.value = id
+        this.id = id
     }
 
     suspend fun update (movie: Movie){

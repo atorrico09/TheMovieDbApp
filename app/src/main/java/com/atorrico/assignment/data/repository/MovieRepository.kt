@@ -1,9 +1,10 @@
 package com.atorrico.assignment.data.repository
 
 import com.atorrico.assignment.data.entities.Movie
+import com.atorrico.assignment.data.entities.MovieList
 import com.atorrico.assignment.data.local.MovieDao
 import com.atorrico.assignment.data.remote.MovieRemoteDataSource
-import com.atorrico.assignment.utils.performGetOperation
+import com.atorrico.assignment.utils.Result
 import javax.inject.Inject
 
 class MovieRepository @Inject constructor(
@@ -11,13 +12,17 @@ class MovieRepository @Inject constructor(
     private val localDataSource: MovieDao
 ) {
 
-    fun getMovie(id: Int) = localDataSource.getMovie(id)
+    suspend fun getMovie(id: Int): Result<Movie>{
+        return remoteDataSource.getMovie(id)
+    }
 
-    fun getMovies() = performGetOperation(
-        databaseQuery = { localDataSource.getAllMovies() },
-        networkCall = { remoteDataSource.getMovies() },
-        saveCallResult = { localDataSource.insertAll(it.items) }
-    )
+    suspend fun getMovies(): Result<MovieList>{
+        return remoteDataSource.getMovies()
+    }
+
+    suspend fun getGenre(id: Int): Result<String>{
+        return Result.Success(remoteDataSource.getGenre(id))
+    }
 
     fun getMyMovies() = localDataSource.getMyMovies()
 

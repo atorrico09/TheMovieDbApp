@@ -16,7 +16,7 @@ import com.atorrico.assignment.R
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
 import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES
-import com.atorrico.assignment.utils.Resource
+import com.atorrico.assignment.utils.Result
 import com.atorrico.assignment.utils.autoCleared
 import com.atorrico.assignment.utils.getDominantColor
 import com.atorrico.assignment.utils.getYear
@@ -59,10 +59,19 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.movie.observe(viewLifecycleOwner, {
-            bindMovie(it!!)
-            binding.progressBar.visibility = View.GONE
-            binding.movieCl.visibility = View.VISIBLE
+        viewModel.fetchMovie().observe(viewLifecycleOwner, {
+            when(it){
+                is Result.Loading ->{
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Result.Success ->{
+                    bindMovie(it.data as Movie)
+                    binding.progressBar.visibility = View.GONE
+                    binding.movieCl.visibility = View.VISIBLE
+                }
+                is Result.Failure ->
+                    Toast.makeText(requireContext(), "it.message", Toast.LENGTH_SHORT).show()
+            }
         })
     }
 

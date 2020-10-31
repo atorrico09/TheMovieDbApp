@@ -9,15 +9,14 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.atorrico.assignment.R
+import com.atorrico.assignment.data.entities.MovieWithGenre
 import com.atorrico.assignment.databinding.FragmentMoviesBinding
-import com.atorrico.assignment.utils.Resource
+import com.atorrico.assignment.utils.Result
 import com.atorrico.assignment.utils.autoCleared
 import com.google.android.material.transition.MaterialElevationScale
-import com.google.android.material.transition.MaterialFadeThrough
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 
@@ -27,14 +26,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
     private var binding: FragmentMoviesBinding by autoCleared()
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MoviesAdapter
-    private lateinit var adapter_my_movies: MyMoviesAdapter
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enterTransition = MaterialFadeThrough().apply {
-//            duration = 300.toLong()
-//        }
-//    }
+    private lateinit var adapterMyMovies: MyMoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +44,9 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
     }
 
     private fun setupRecyclerView() {
-        adapter_my_movies = MyMoviesAdapter(this)
+        adapterMyMovies = MyMoviesAdapter(this)
         binding.subscribedRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
-        binding.subscribedRv.adapter = adapter_my_movies
+        binding.subscribedRv.adapter = adapterMyMovies
 
         adapter = MoviesAdapter(this)
         binding.moviesRv.layoutManager = LinearLayoutManager(requireContext())
@@ -62,17 +54,17 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
     }
 
     private fun setupObservers() {
-        viewModel.movies.observe(viewLifecycleOwner, {
-            when (it.status) {
-                Resource.Status.SUCCESS -> {
-                    binding.progressBar.visibility = View.GONE
-                    if (!it.data.isNullOrEmpty()) adapter.setItems(ArrayList(it.data))
-                }
-                Resource.Status.ERROR ->
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-
-                Resource.Status.LOADING ->
+        viewModel.fetchMovies().observe(viewLifecycleOwner, {
+            when (it) {
+                is Result.Loading ->
                     binding.progressBar.visibility = View.VISIBLE
+                is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    if (it.data != null)
+                        adapter.setItems(it.data as ArrayList<MovieWithGenre>)
+                }
+                is Result.Failure ->
+                    Toast.makeText(requireContext(), "it.message", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -80,7 +72,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
             if (!it.isNullOrEmpty()) {
                 binding.tvSubscribed.visibility = View.VISIBLE
                 binding.subscribedRv.visibility = View.VISIBLE
-                adapter_my_movies.setItems(ArrayList(it))
+                adapterMyMovies.setItems(ArrayList(it))
             }else{
                 binding.tvSubscribed.visibility = View.GONE
                 binding.subscribedRv.visibility = View.GONE
@@ -115,5 +107,4 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
                 bundleOf("id" to movieId)
         )
     }
-
 }
