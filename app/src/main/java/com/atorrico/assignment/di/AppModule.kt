@@ -2,7 +2,7 @@ package com.atorrico.assignment.di
 
 import android.content.Context
 import com.atorrico.assignment.data.local.AppDatabase
-import com.atorrico.assignment.data.local.MovieDao
+import com.atorrico.assignment.data.local.MovieFavouritesDao
 import com.atorrico.assignment.data.remote.MovieRemoteDataSource
 import com.atorrico.assignment.data.remote.MovieService
 import com.atorrico.assignment.data.repository.MovieRepository
@@ -49,7 +49,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRepository(remoteDataSource: MovieRemoteDataSource,
-                          localDataSource: MovieDao
+                          localDataSource: MovieFavouritesDao
     ) =
         MovieRepository(remoteDataSource, localDataSource)
 }

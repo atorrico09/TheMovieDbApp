@@ -3,6 +3,7 @@ package com.atorrico.assignment.ui.moviedetail
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.atorrico.assignment.data.entities.Movie
+import com.atorrico.assignment.data.entities.MovieFavourite
 import com.atorrico.assignment.data.repository.MovieRepository
 import com.atorrico.assignment.utils.Result
 import com.atorrico.assignment.utils.mapSuccess
@@ -28,8 +29,10 @@ class MovieDetailViewModel @ViewModelInject constructor(
         this.id = id
     }
 
-    suspend fun update (movie: Movie){
-        repository.updateMovie(movie)
+    suspend fun insert (movie: MovieFavourite){
+        repository.insertMovie(movie)
     }
+
+    fun getMovie(id: Int) = repository.getMovieFavourite(id)
 
 }

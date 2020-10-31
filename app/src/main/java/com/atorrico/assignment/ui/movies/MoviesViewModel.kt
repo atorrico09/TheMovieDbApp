@@ -1,6 +1,5 @@
 package com.atorrico.assignment.ui.movies
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -14,7 +13,7 @@ class MoviesViewModel @ViewModelInject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    val myMovies = repository.getMyMovies()
+    val movies_favourites = repository.getAllMovies()
 
     fun fetchMovies() = liveData(Dispatchers.IO) {
         emit(Result.Loading())

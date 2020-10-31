@@ -21,12 +21,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdapter.MyMovieItemListener {
+class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavouritesAdapter.MyMovieItemListener {
 
     private var binding: FragmentMoviesBinding by autoCleared()
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MoviesAdapter
-    private lateinit var adapterMyMovies: MyMoviesAdapter
+    private lateinit var adapterMyMovies: MoviesFavouritesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
     }
 
     private fun setupRecyclerView() {
-        adapterMyMovies = MyMoviesAdapter(this)
+        adapterMyMovies = MoviesFavouritesAdapter(this)
         binding.subscribedRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
         binding.subscribedRv.adapter = adapterMyMovies
 
@@ -68,7 +68,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MyMoviesAdap
             }
         })
 
-        viewModel.myMovies.observe(viewLifecycleOwner, {
+        viewModel.movies_favourites.observe(viewLifecycleOwner, {
             if (!it.isNullOrEmpty()) {
                 binding.tvSubscribed.visibility = View.VISIBLE
                 binding.subscribedRv.visibility = View.VISIBLE

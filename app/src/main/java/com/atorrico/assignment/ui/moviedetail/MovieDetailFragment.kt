@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.atorrico.assignment.R
 import com.atorrico.assignment.data.entities.Movie
+import com.atorrico.assignment.data.entities.MovieFavourite
 import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
 import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES
 import com.atorrico.assignment.utils.Result
@@ -79,17 +80,6 @@ class MovieDetailFragment : Fragment() {
         binding.tvTitle.text = movie.title
         binding.tvYear.text = getYear(movie.release_date)
         binding.tvOverview.text = movie.overview
-        if (movie.subscribe){
-            binding.btnSuscribe.text = resources.getString(R.string.suscribed)
-            binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
-            binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.transparent))
-        }
-        else{
-            binding.btnSuscribe.text = resources.getString(R.string.suscribe)
-            binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), android.R.color.transparent))
-            binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        }
-
 
         Glide.with(this)
             .asBitmap()
@@ -107,10 +97,28 @@ class MovieDetailFragment : Fragment() {
 
         btnSuscribe.setOnClickListener{
             lifecycleScope.launch {
-                movie.subscribe = !movie.subscribe
-                viewModel.update(movie)
+                var subscribe = false
+                if (binding.btnSuscribe.text == resources.getString(R.string.suscribe))
+                    subscribe = true
+
+                val movieDetail = MovieFavourite(movie.id, movie.poster_path, subscribe)
+                viewModel.insert(movieDetail)
             }
         }
+
+        viewModel.getMovie(movie.id).observe(viewLifecycleOwner, {
+            if (it != null && it.subscribe){
+                binding.btnSuscribe.text = resources.getString(R.string.suscribed)
+                binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.transparent))
+            }
+            else{
+                binding.btnSuscribe.text = resources.getString(R.string.suscribe)
+                binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), android.R.color.transparent))
+                binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
+        })
+
     }
 
     private fun setToolbarProperties(dominantColor: Int, resource: Bitmap) {
