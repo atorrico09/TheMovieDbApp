@@ -24,7 +24,8 @@ Ejercicio técnico
   - Glide: Carga de imagenes
 
 * UI
-  - Layout
+  - Fragments
+  - Layouts
   - Pallete
   - Material Design
 
