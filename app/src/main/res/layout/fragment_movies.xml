@@ -42,6 +42,8 @@
         android:id="@+id/movies_rv"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/vertical_margin_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
@@ -50,6 +52,7 @@
         android:indeterminate="true"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:indeterminateTint="@color/red"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
