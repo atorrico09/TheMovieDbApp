@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.data.entities.MovieFavourite
-import com.atorrico.assignment.databinding.ItemMyMovieBinding
+import com.atorrico.assignment.databinding.ItemMovieFavouriteBinding
 import com.atorrico.assignment.utils.Constants
 import com.bumptech.glide.Glide
 
@@ -25,7 +25,7 @@ class MoviesFavouritesAdapter(private val listener: MyMovieItemListener) : Recyc
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyMovieViewHolder {
-        val binding: ItemMyMovieBinding = ItemMyMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemMovieFavouriteBinding = ItemMovieFavouriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyMovieViewHolder(binding, listener)
     }
 
@@ -34,7 +34,7 @@ class MoviesFavouritesAdapter(private val listener: MyMovieItemListener) : Recyc
     override fun onBindViewHolder(holder: MyMovieViewHolder, position: Int) = holder.bind(items[position])
 }
 
-class MyMovieViewHolder(private val itemBinding: ItemMyMovieBinding, private val listener: MoviesFavouritesAdapter.MyMovieItemListener) : RecyclerView.ViewHolder(itemBinding.root),
+class MyMovieViewHolder(private val itemBinding: ItemMovieFavouriteBinding, private val listener: MoviesFavouritesAdapter.MyMovieItemListener) : RecyclerView.ViewHolder(itemBinding.root),
         View.OnClickListener {
 
     private lateinit var movie: MovieFavourite

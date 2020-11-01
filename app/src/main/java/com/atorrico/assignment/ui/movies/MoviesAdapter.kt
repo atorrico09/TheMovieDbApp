@@ -9,6 +9,8 @@ import com.atorrico.assignment.data.entities.MovieWithGenre
 import com.atorrico.assignment.databinding.ItemMovieBinding
 import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES
 import com.bumptech.glide.Glide
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MoviesAdapter(private val listener: MovieItemListener) : RecyclerView.Adapter<MovieViewHolder>() {
 
@@ -47,7 +49,7 @@ class MovieViewHolder(private val itemBinding: ItemMovieBinding, private val lis
     fun bind(item: MovieWithGenre) {
         this.movie = item
         itemBinding.tvTitle.text = item.title
-        itemBinding.tvGenre.text = item.genre_name
+        itemBinding.tvGenre.text = item.genre_name.toUpperCase(Locale.ROOT)
 
         Glide.with(itemBinding.root)
             .load(BASE_URL_IMAGES + item.backdrop_path)
