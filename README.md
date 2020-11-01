@@ -9,14 +9,18 @@ Ejercicio técnico
 
 ## Tecnologias y librerias utilizadas:
 * Arquitectura MVVM (Repository Pattern, LiveData, ViewModel, Coroutines)
+* Kotlin
 * Android Jetpack
 * Hilt para Inyeccion de Dependencias
-* Retrofit para obtencion de datos de la API 
+* Retrofit2 para obtencion de datos de la API 
 * Room para persistencia local
 * Componente Navigation
 * Databinding
 * Splash con Motion Layout
+* Glide para manejo de imagenes
 * RecyclerView
+* Material Design
+
 
 
 #### Configuracion de API KEY:
