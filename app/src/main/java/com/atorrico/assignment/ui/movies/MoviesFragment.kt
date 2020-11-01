@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.R
 import com.atorrico.assignment.data.entities.MovieWithGenre
 import com.atorrico.assignment.databinding.FragmentMoviesBinding
@@ -26,7 +27,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavour
     private var binding: FragmentMoviesBinding by autoCleared()
     private val viewModel: MoviesViewModel by viewModels()
     private lateinit var adapter: MoviesAdapter
-    private lateinit var adapterMyMovies: MoviesFavouritesAdapter
+    private lateinit var adapterFavs: MoviesFavouritesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,11 +45,12 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavour
     }
 
     private fun setupRecyclerView() {
-        adapterMyMovies = MoviesFavouritesAdapter(this)
+        adapterFavs = MoviesFavouritesAdapter(this)
         binding.subscribedRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
-        binding.subscribedRv.adapter = adapterMyMovies
+        binding.subscribedRv.adapter = adapterFavs
 
         adapter = MoviesAdapter(this)
+        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.moviesRv.layoutManager = LinearLayoutManager(requireContext())
         binding.moviesRv.adapter = adapter
     }
@@ -72,7 +74,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavour
             if (!it.isNullOrEmpty()) {
                 binding.tvSubscribed.visibility = View.VISIBLE
                 binding.subscribedRv.visibility = View.VISIBLE
-                adapterMyMovies.setItems(ArrayList(it))
+                adapterFavs.setItems(ArrayList(it))
             }else{
                 binding.tvSubscribed.visibility = View.GONE
                 binding.subscribedRv.visibility = View.GONE

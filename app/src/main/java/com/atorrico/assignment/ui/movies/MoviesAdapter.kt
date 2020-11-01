@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.data.entities.MovieWithGenre
 import com.atorrico.assignment.databinding.ItemMovieBinding
 import com.atorrico.assignment.utils.Constants.BASE_URL_IMAGES

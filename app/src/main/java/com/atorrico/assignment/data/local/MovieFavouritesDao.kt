@@ -1,8 +1,10 @@
 package com.atorrico.assignment.data.local
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.atorrico.assignment.data.entities.Movie
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.atorrico.assignment.data.entities.MovieFavourite
 
 
