@@ -1,26 +1,32 @@
-# TheMovieDbApp
+# Movie App
 Ejercicio técnico
 
 ## Funcionalidades realizadas:
 * Listado principal
-* Visualizacion del Detalle con animacion al scroll + color de fondo segun predominante de imagen
+* Visualizacion del Detalle con parallax al scroll + color de fondo segun predominante de imagen
 * Obtencion del genero de cada pelicula
 * Suscripcion (local)
 
-## Tecnologias y librerias utilizadas:
-* Arquitectura MVVM (Repository Pattern, LiveData, ViewModel, Coroutines)
-* Kotlin
-* Android Jetpack
-* Hilt para Inyeccion de Dependencias
-* Retrofit2 para obtencion de datos de la API 
-* Room para persistencia local
-* Componente Navigation
-* Databinding
-* Glide para manejo de imagenes
-* RecyclerView
-* Splash con Motion Layout
-* Material Design
+## Tecnologias utilizadas en este proyecto:
+* Componentes base de Arquitectura Android Jetpack
+  - AndroidX y Android KTX 
+  - Kotlin
+  - Lifecycles
+  - LiveData
+  - ViewModel
+  - Navigation
+  - Room
 
+* Librerias 
+  - Hilt: Inyeccion de Dependencias
+  - Kotlin Corrutinas: Manejo de procesos en segundo plano
+  - Retrofit2: Llamadas a API
+  - Glide: Carga de imagenes
+
+* UI
+  - Layout
+  - Pallete
+  - Material Design
 
 
 #### Configuracion de API KEY:
