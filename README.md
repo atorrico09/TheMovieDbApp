@@ -6,7 +6,6 @@ Ejercicio técnico
 * Visualizacion del Detalle con animacion al scroll + color de fondo segun predominante de imagen
 * Obtencion del genero de cada pelicula
 * Suscripcion (local)
-* Visual acorde al diseño enviado
 
 ## Tecnologias y librerias utilizadas:
 * Arquitectura MVVM (Repository Pattern, LiveData, ViewModel, Coroutines)
