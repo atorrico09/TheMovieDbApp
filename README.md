@@ -16,9 +16,9 @@ Ejercicio técnico
 * Room para persistencia local
 * Componente Navigation
 * Databinding
-* Splash con Motion Layout
 * Glide para manejo de imagenes
 * RecyclerView
+* Splash con Motion Layout
 * Material Design
 
 
