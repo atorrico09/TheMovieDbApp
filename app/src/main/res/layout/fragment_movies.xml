@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.movies.MoviesFragment"
+    android:background="?attr/colorPrimaryVariant">
+
+    <TextView
+        android:id="@+id/tvSubscribed"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@color/teal_200"
+        android:textSize="12sp"
+        android:layout_margin="@dimen/horizontal_margin_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="SUBSCRIBED"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/subscribed_rv"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubscribed"
+        />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@color/teal_200"
+        android:textSize="12sp"
+        android:layout_margin="@dimen/horizontal_margin_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subscribed_rv"
+        android:text="ALL" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movies_rv"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/vertical_margin_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:indeterminate="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:indeterminateTint="@color/red"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
