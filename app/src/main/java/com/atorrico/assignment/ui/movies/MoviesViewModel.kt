@@ -13,24 +13,36 @@ class MoviesViewModel @ViewModelInject constructor(
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    val movies_favourites = repository.getAllMovies()
+    val moviesFavourites = repository.getAllMovies()
 
     fun fetchMovies() = liveData(Dispatchers.IO) {
         emit(Result.Loading())
 
-        try{
-            val listMoviesWithGenre = repository.getMovies().mapSuccess {
+        try {
+            val listMoviesWithGenre = repository.getMovies().mapSuccess { movies ->
                 val list: MutableList<MovieWithGenre> = arrayListOf()
-                it.items.forEach { movie ->
-                    repository.getGenre(movie.genre_ids[0]).mapSuccess { genre_name ->
-                        list.add(MovieWithGenre(movie.id, movie.title, genre_name, movie.backdrop_path))
-                    }
+                var genreMap: Map<Int, String> = mapOf()
+
+                repository.getGenres().mapSuccess { genres ->
+                    genreMap = genres.genres.associate { it.id to it.name }
+                }
+
+                movies.items.forEach { movie ->
+                    list.add(
+                        MovieWithGenre(
+                            movie.id,
+                            movie.title,
+                            genreMap[movie.genre_ids.first()].toString(),
+                            movie.backdrop_path
+                        )
+                    )
                 }
                 list
             }
+
             emit(Result.Success(listMoviesWithGenre))
-        }catch (e: Exception){
-//            emit(Result.Failure(e))
+        } catch (e: Exception) {
+            emit(Result.Failure(e))
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.atorrico.assignment.data.remote
 
+import com.atorrico.assignment.data.entities.GenreList
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.data.entities.MovieList
 import com.atorrico.assignment.utils.Result
@@ -11,6 +12,5 @@ class MovieRemoteDataSource @Inject constructor(
 
     suspend fun getMovies(): Result<MovieList> = Result.Success(movieService.getAllMovies())
     suspend fun getMovie(id: Int): Result<Movie> = Result.Success (movieService.getMovie(id))
-    suspend fun getGenre(id: Int): String = movieService.getGenre(id).name
-
+    suspend fun getGenres(): Result<GenreList> = Result.Success(movieService.getGenres())
 }

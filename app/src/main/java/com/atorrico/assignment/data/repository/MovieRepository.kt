@@ -1,5 +1,6 @@
 package com.atorrico.assignment.data.repository
 
+import com.atorrico.assignment.data.entities.GenreList
 import com.atorrico.assignment.data.entities.Movie
 import com.atorrico.assignment.data.entities.MovieFavourite
 import com.atorrico.assignment.data.entities.MovieList
@@ -21,8 +22,8 @@ class MovieRepository @Inject constructor(
         return remoteDataSource.getMovies()
     }
 
-    suspend fun getGenre(id: Int): Result<String>{
-        return Result.Success(remoteDataSource.getGenre(id))
+    suspend fun getGenres(): Result<GenreList>{
+        return remoteDataSource.getGenres()
     }
 
     fun getAllMovies() = localDataSource.getAllMovies()

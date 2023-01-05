@@ -22,7 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 @AndroidEntryPoint
-class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavouritesAdapter.MyMovieItemListener {
+class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener,
+    MoviesFavouritesAdapter.MyMovieItemListener {
 
     private var binding: FragmentMoviesBinding by autoCleared()
     private val viewModel: MoviesViewModel by viewModels()
@@ -46,17 +47,19 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavour
 
     private fun setupRecyclerView() {
         adapterFavs = MoviesFavouritesAdapter(this)
-        binding.subscribedRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL, false)
+        binding.subscribedRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.subscribedRv.adapter = adapterFavs
 
         adapter = MoviesAdapter(this)
-        adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding.moviesRv.layoutManager = LinearLayoutManager(requireContext())
         binding.moviesRv.adapter = adapter
     }
 
     private fun setupObservers() {
-        viewModel.fetchMovies().observe(viewLifecycleOwner, {
+        viewModel.fetchMovies().observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading ->
                     binding.progressBar.visibility = View.VISIBLE
@@ -68,18 +71,18 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavour
                 is Result.Failure ->
                     Toast.makeText(requireContext(), "it.message", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        viewModel.movies_favourites.observe(viewLifecycleOwner, {
+        viewModel.moviesFavourites.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 binding.tvSubscribed.visibility = View.VISIBLE
                 binding.subscribedRv.visibility = View.VISIBLE
                 adapterFavs.setItems(ArrayList(it))
-            }else{
+            } else {
                 binding.tvSubscribed.visibility = View.GONE
                 binding.subscribedRv.visibility = View.GONE
             }
-        })
+        }
     }
 
     override fun onClickedMovie(movieId: Int) {
@@ -105,8 +108,8 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener, MoviesFavour
         }
 
         findNavController().navigate(
-                R.id.action_moviesFragment_to_movieDetailFragment,
-                bundleOf("id" to movieId)
+            R.id.action_moviesFragment_to_movieDetailFragment,
+            bundleOf("id" to movieId)
         )
     }
 }
