@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.atorrico.assignment.ui.movies.MoviesFragment"
+        android:name="com.atorrico.assignment.presentation.screen.movielist.MoviesFragment"
         android:label="@string/main_title"
         tools:layout="@layout/fragment_movies" >
         <action
@@ -16,6 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.atorrico.assignment.ui.moviedetail.MovieDetailFragment"
+        android:name="com.atorrico.assignment.presentation.screen.moviedetail.MovieDetailFragment"
         tools:layout="@layout/fragment_movie_detail" />
 </navigation>

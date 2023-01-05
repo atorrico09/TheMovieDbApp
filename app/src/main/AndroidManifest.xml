@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TheMovieDbApp">
 
-        <activity android:name=".ui.SplashActivity"
+        <activity android:name=".presentation.SplashActivity"
             android:noHistory="true"
             android:exported="true">
             <intent-filter>
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".presentation.MainActivity" />
     </application>
 
 </manifest>
