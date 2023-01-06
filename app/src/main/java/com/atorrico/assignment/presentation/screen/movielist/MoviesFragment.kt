@@ -59,7 +59,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener,
     }
 
     private fun setupObservers() {
-        viewModel.fetchMovies().observe(viewLifecycleOwner) {
+        viewModel.getMovieList().observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading ->
                     binding.progressBar.visibility = View.VISIBLE
@@ -74,7 +74,7 @@ class MoviesFragment : Fragment(), MoviesAdapter.MovieItemListener,
             }
         }
 
-        viewModel.moviesFavourites.observe(viewLifecycleOwner) {
+        viewModel.getMovieListDao().observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 binding.tvSubscribed.visibility = View.VISIBLE
                 binding.subscribedRv.visibility = View.VISIBLE

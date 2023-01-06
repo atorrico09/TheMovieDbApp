@@ -9,11 +9,11 @@ import retrofit2.http.Path
 
 interface MovieRetrofitService {
     @GET("list/1?api_key=$API_KEY_MOVIE_DB_APP&language=en-US")
-    suspend fun getAllMovies(): GetMovieResponse
+    suspend fun getMovieList(): GetMovieResponse
 
     @GET("movie/{id}?api_key=$API_KEY_MOVIE_DB_APP")
     suspend fun getMovie(@Path("id") id: Int): MovieApiModel
 
     @GET("genre/movie/list?api_key=$API_KEY_MOVIE_DB_APP")
-    suspend fun getGenres(): GetGenreResponse
+    suspend fun getGenreList(): GetGenreResponse
 }

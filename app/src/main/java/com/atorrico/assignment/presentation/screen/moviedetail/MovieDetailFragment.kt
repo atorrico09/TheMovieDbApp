@@ -40,6 +40,7 @@ class MovieDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enterTransition = MaterialFadeThrough().apply {
             duration = 300.toLong()
         }
@@ -48,32 +49,34 @@ class MovieDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getInt("id")?.let { viewModel.start(it) }
+
+        arguments?.getInt("id")?.let { viewModel.init(it) }
         setupObservers()
     }
 
     private fun setupObservers() {
-        viewModel.fetchMovie().observe(viewLifecycleOwner, {
-            when(it){
-                is Result.Loading ->{
+        viewModel.getMovie().observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
-                is Result.Success ->{
+                is Result.Success -> {
                     bindMovie(it.data as MovieApiModel)
                     binding.progressBar.visibility = View.GONE
                     binding.movieCl.visibility = View.VISIBLE
                 }
-                is Result.Failure ->
-                    Toast.makeText(requireContext(), "it.message", Toast.LENGTH_SHORT).show()
+                is Result.Failure -> {
+                    Toast.makeText(requireContext(), it.exception.message, Toast.LENGTH_LONG).show()
+                }
             }
-        })
+        }
     }
 
     private fun bindMovie(movieApiModel: MovieApiModel) {
@@ -102,22 +105,37 @@ class MovieDetailFragment : Fragment() {
                     subscribe = true
 
                 val movieDetail = MovieEntityModel(movieApiModel.id, movieApiModel.poster_path, subscribe)
-                viewModel.insert(movieDetail)
+                viewModel.insertMovieDao(movieDetail)
             }
         }
 
-        viewModel.getMovie(movieApiModel.id).observe(viewLifecycleOwner, {
-            if (it != null && it.subscribe){
+        viewModel.getMovie(movieApiModel.id).observe(viewLifecycleOwner) {
+            if (it != null && it.subscribe) {
                 binding.btnSuscribe.text = resources.getString(R.string.suscribed)
-                binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
-                binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.transparent))
-            }
-            else{
+                binding.btnSuscribe.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.btnSuscribe.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.transparent
+                    )
+                )
+            } else {
                 binding.btnSuscribe.text = resources.getString(R.string.suscribe)
-                binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), android.R.color.transparent))
-                binding.btnSuscribe.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        android.R.color.transparent
+                    )
+                )
+                binding.btnSuscribe.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
             }
-        })
+        }
 
     }
 

@@ -11,7 +11,9 @@ class MovieRemoteDataSource @Inject constructor(
     private val movieRetrofitService: MovieRetrofitService
 ) {
 
-    suspend fun getMovies(): Result<GetMovieResponse> = Result.Success(movieRetrofitService.getAllMovies())
+    suspend fun getMovieList(): Result<GetMovieResponse> = Result.Success(movieRetrofitService.getMovieList())
+
     suspend fun getMovie(id: Int): Result<MovieApiModel> = Result.Success (movieRetrofitService.getMovie(id))
-    suspend fun getGenres(): Result<GetGenreResponse> = Result.Success(movieRetrofitService.getGenres())
+
+    suspend fun getGenreList(): Result<GetGenreResponse> = Result.Success(movieRetrofitService.getGenreList())
 }

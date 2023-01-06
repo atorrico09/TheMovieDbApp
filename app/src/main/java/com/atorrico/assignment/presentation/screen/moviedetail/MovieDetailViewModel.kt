@@ -1,37 +1,37 @@
 package com.atorrico.assignment.presentation.screen.moviedetail
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
-import com.atorrico.assignment.data.repository.MovieRepositoryImpl
+import com.atorrico.assignment.domain.usecase.GetMovieUseCase
 import com.atorrico.assignment.presentation.utils.Result
 import com.atorrico.assignment.presentation.utils.mapSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class MovieDetailViewModel @ViewModelInject constructor(
-    private val repository: MovieRepositoryImpl
+@HiltViewModel
+class MovieDetailViewModel @Inject constructor(
+    private val getMovieUseCase: GetMovieUseCase
 ) : ViewModel() {
 
     private var id: Int = 0
 
-    fun fetchMovie() = liveData(Dispatchers.IO) {
-        emit(Result.Loading())
-        try{
-            val movie = repository.getMovie(id).mapSuccess { it }
-            emit(Result.Success(movie))
-        }catch (e: Exception){
-//            emit(Result.Failure(e))
-        }
-    }
-
-    fun start(id: Int) {
+    fun init(id: Int) {
         this.id = id
     }
 
-    suspend fun insert (movie: MovieEntityModel){
-        repository.insertMovie(movie)
+    fun getMovie() = liveData(Dispatchers.IO) {
+        emit(Result.Loading())
+        try {
+            val movie = getMovieUseCase(id).mapSuccess { it }
+            emit(Result.Success(movie))
+        } catch (e: Exception) {
+            emit(Result.Failure(e))
+        }
     }
 
-    fun getMovie(id: Int) = repository.getMovieFavourite(id)
+    suspend fun insertMovieDao (movie: MovieEntityModel) = getMovieUseCase.insertMovieDao(movie)
+
+    fun getMovie(id: Int) = getMovieUseCase.getMovieDao(id)
 
 }

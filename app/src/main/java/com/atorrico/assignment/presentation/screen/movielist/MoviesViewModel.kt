@@ -1,29 +1,31 @@
 package com.atorrico.assignment.presentation.screen.movielist
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.atorrico.assignment.data.datasource.api.model.MovieWithGenre
-import com.atorrico.assignment.data.repository.MovieRepositoryImpl
+import com.atorrico.assignment.domain.usecase.GetGenreListUseCase
+import com.atorrico.assignment.domain.usecase.GetMovieListUseCase
 import com.atorrico.assignment.presentation.utils.Result
 import com.atorrico.assignment.presentation.utils.mapSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class MoviesViewModel @ViewModelInject constructor(
-    private val repository: MovieRepositoryImpl
+@HiltViewModel
+class MoviesViewModel @Inject constructor(
+    private val getMovieListUseCase: GetMovieListUseCase,
+    private val getGenreListUseCase: GetGenreListUseCase
 ) : ViewModel() {
 
-    val moviesFavourites = repository.getAllMovies()
-
-    fun fetchMovies() = liveData(Dispatchers.IO) {
+    fun getMovieList() = liveData(Dispatchers.IO) {
         emit(Result.Loading())
 
         try {
-            val listMoviesWithGenre = repository.getMovies().mapSuccess { movies ->
+            val listMoviesWithGenre = getMovieListUseCase().mapSuccess { movies ->
                 val list: MutableList<MovieWithGenre> = arrayListOf()
                 var genreMap: Map<Int, String> = mapOf()
 
-                repository.getGenres().mapSuccess { genres ->
+                getGenreListUseCase().mapSuccess { genres ->
                     genreMap = genres.genres.associate { it.id to it.name }
                 }
 
@@ -45,4 +47,6 @@ class MoviesViewModel @ViewModelInject constructor(
             emit(Result.Failure(e))
         }
     }
+
+    fun getMovieListDao() = getMovieListUseCase.getMovieListDao()
 }

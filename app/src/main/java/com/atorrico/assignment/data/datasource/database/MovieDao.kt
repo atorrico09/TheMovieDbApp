@@ -12,10 +12,10 @@ import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
 interface MovieDao {
 
     @Query("SELECT * FROM movies_favourites WHERE subscribe = 1")
-    fun getAllMovies() : LiveData<List<MovieEntityModel>>
+    fun getMovieListDao() : LiveData<List<MovieEntityModel>>
 
     @Query("SELECT * FROM movies_favourites WHERE id = :id")
-    fun getMovie(id: Int) : LiveData<MovieEntityModel>
+    fun getMovieDao(id: Int) : LiveData<MovieEntityModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(movie: MovieEntityModel)
