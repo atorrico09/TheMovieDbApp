@@ -28,6 +28,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "MOVIE_DB_API_KEY", apikeyProperties['MOVIE_DB_API_KEY'])
+        buildConfigField("String", "BASE_URL", '"https://api.themoviedb.org/3/"')
+        buildConfigField("String", "BASE_URL_IMAGES", '"https://image.tmdb.org/t/p/w500"')
     }
 
     buildTypes {
@@ -84,7 +86,6 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
-
 
     //Navigation
     def nav_version = "2.3.1"
