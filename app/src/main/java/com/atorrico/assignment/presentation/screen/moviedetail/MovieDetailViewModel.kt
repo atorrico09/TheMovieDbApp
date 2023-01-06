@@ -14,13 +14,7 @@ class MovieDetailViewModel @Inject constructor(
     private val getMovieUseCase: GetMovieUseCase
 ) : ViewModel() {
 
-    private var id: Int = 0
-
-    fun init(id: Int) {
-        this.id = id
-    }
-
-    fun getMovie() = liveData(Dispatchers.IO) {
+    fun getMovie(id: Int) = liveData(Dispatchers.IO) {
         emit(Result.Loading())
         try {
             val movie = getMovieUseCase(id).mapSuccess { it }
@@ -32,6 +26,6 @@ class MovieDetailViewModel @Inject constructor(
 
     suspend fun insertMovieDao (movie: MovieEntityModel) = getMovieUseCase.insertMovieDao(movie)
 
-    fun getMovie(id: Int) = getMovieUseCase.getMovieDao(id)
+    fun getMovieDao(id: Int) = getMovieUseCase.getMovieDao(id)
 
 }

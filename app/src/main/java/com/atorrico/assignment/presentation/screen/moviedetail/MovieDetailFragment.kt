@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import kotlinx.android.synthetic.main.fragment_movie_detail.view.*
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
@@ -37,6 +38,7 @@ class MovieDetailFragment : Fragment() {
 
     private var binding: FragmentMovieDetailBinding by autoCleared()
     private val viewModel: MovieDetailViewModel by viewModels()
+    private var movieId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,12 +59,12 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getInt("id")?.let { viewModel.init(it) }
+        movieId = arguments?.getInt("id") ?: 0
         setupObservers()
     }
 
     private fun setupObservers() {
-        viewModel.getMovie().observe(viewLifecycleOwner) {
+        viewModel.getMovie(movieId).observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
@@ -109,7 +111,7 @@ class MovieDetailFragment : Fragment() {
             }
         }
 
-        viewModel.getMovie(movieApiModel.id).observe(viewLifecycleOwner) {
+        viewModel.getMovieDao(movieId).observe(viewLifecycleOwner) {
             if (it != null && it.subscribe) {
                 binding.btnSuscribe.text = resources.getString(R.string.suscribed)
                 binding.btnSuscribe.backgroundTintList =
