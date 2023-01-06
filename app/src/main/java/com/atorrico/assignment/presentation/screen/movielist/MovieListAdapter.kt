@@ -10,9 +10,9 @@ import com.atorrico.assignment.databinding.ItemMovieBinding
 import com.atorrico.assignment.presentation.utils.Constants.BASE_URL_IMAGES
 import com.bumptech.glide.Glide
 import java.util.*
-import kotlin.collections.ArrayList
 
-class MoviesAdapter(private val listener: MovieItemListener) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieListAdapter(private val listener: MovieItemListener) :
+    RecyclerView.Adapter<MovieViewHolder>() {
 
     interface MovieItemListener {
         fun onClickedMovie(movieId: Int)
@@ -27,16 +27,21 @@ class MoviesAdapter(private val listener: MovieItemListener) : RecyclerView.Adap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding: ItemMovieBinding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemMovieBinding =
+            ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
+        holder.bind(items[position])
 }
 
-class MovieViewHolder(private val itemBinding: ItemMovieBinding, private val listener: MoviesAdapter.MovieItemListener) : RecyclerView.ViewHolder(itemBinding.root),
+class MovieViewHolder(
+    private val itemBinding: ItemMovieBinding,
+    private val listener: MovieListAdapter.MovieItemListener
+) : RecyclerView.ViewHolder(itemBinding.root),
     View.OnClickListener {
 
     private lateinit var movie: MovieWithGenre

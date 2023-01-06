@@ -103,7 +103,7 @@ class MovieDetailFragment : Fragment() {
         btnSuscribe.setOnClickListener{
             lifecycleScope.launch {
                 var subscribe = false
-                if (binding.btnSuscribe.text == resources.getString(R.string.suscribe))
+                if (binding.btnSuscribe.text == resources.getString(R.string.button_suscribe_text))
                     subscribe = true
 
                 val movieDetail = MovieEntityModel(movieApiModel.id, movieApiModel.poster_path, subscribe)
@@ -113,7 +113,7 @@ class MovieDetailFragment : Fragment() {
 
         viewModel.getMovieDao(movieId).observe(viewLifecycleOwner) {
             if (it != null && it.subscribe) {
-                binding.btnSuscribe.text = resources.getString(R.string.suscribed)
+                binding.btnSuscribe.text = resources.getString(R.string.label_suscribed_text)
                 binding.btnSuscribe.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
                 binding.btnSuscribe.setTextColor(
@@ -123,7 +123,7 @@ class MovieDetailFragment : Fragment() {
                     )
                 )
             } else {
-                binding.btnSuscribe.text = resources.getString(R.string.suscribe)
+                binding.btnSuscribe.text = resources.getString(R.string.button_suscribe_text)
                 binding.btnSuscribe.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(
                         requireContext(),

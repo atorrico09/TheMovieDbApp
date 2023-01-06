@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesViewModel @Inject constructor(
+class MovieListViewModel @Inject constructor(
     private val getMovieListUseCase: GetMovieListUseCase,
     private val getGenreListUseCase: GetGenreListUseCase
 ) : ViewModel() {

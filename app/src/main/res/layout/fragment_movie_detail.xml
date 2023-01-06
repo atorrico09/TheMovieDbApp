@@ -31,17 +31,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Title" />
+                tools:text="Avatar: The Way of Water" />
 
             <TextView
                 android:id="@+id/tvYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Year"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="2022" />
 
             <Button
                 android:id="@+id/btnSuscribe"
@@ -49,7 +49,7 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin_default"
-                android:text="subscribe"
+                android:text="@string/button_suscribe_text"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="43dp"
-                android:text="OVERVIEW"
+                android:text="@string/label_overview_text"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,12 +74,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vertical_margin_default"
-                android:text="Overview: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvOverviewTitle" />
-
+                app:layout_constraintTop_toBottomOf="@+id/tvOverviewTitle"
+                tools:text="Overview: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
