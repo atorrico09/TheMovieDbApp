@@ -7,6 +7,7 @@ import com.atorrico.assignment.presentation.utils.Result
 import com.atorrico.assignment.presentation.utils.mapSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +25,9 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-    suspend fun insertMovieDao (movie: MovieEntityModel) = getMovieUseCase.insertMovieDao(movie)
+    fun insertMovieDao (movie: MovieEntityModel) = viewModelScope.launch(Dispatchers.IO) {
+        getMovieUseCase.insertMovieDao(movie)
+    }
 
     fun getMovieDao(id: Int) = getMovieUseCase.getMovieDao(id)
 

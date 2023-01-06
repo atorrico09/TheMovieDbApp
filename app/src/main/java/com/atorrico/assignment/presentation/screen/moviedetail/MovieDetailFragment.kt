@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.atorrico.assignment.R
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
@@ -29,7 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import kotlinx.android.synthetic.main.fragment_movie_detail.view.*
-import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 
@@ -89,7 +87,7 @@ class MovieDetailFragment : Fragment() {
         Glide.with(this)
             .asBitmap()
             .load(BASE_URL_IMAGES + movieApiModel.poster_path)
-            .into(object : CustomTarget<Bitmap>(){
+            .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     val dominantColor = getDominantColor(resource)
                     view?.nested_detail?.setBackgroundColor(dominantColor)
@@ -100,15 +98,15 @@ class MovieDetailFragment : Fragment() {
                 }
             })
 
-        btnSuscribe.setOnClickListener{
-            lifecycleScope.launch {
-                var subscribe = false
-                if (binding.btnSuscribe.text == resources.getString(R.string.button_suscribe_text))
-                    subscribe = true
+        btnSuscribe.setOnClickListener {
+            var isSubscribed = false
+            if (binding.btnSuscribe.text == resources.getString(R.string.button_suscribe_text))
+                isSubscribed = true
 
-                val movieDetail = MovieEntityModel(movieApiModel.id, movieApiModel.poster_path, subscribe)
-                viewModel.insertMovieDao(movieDetail)
-            }
+            val movieDetail =
+                MovieEntityModel(movieApiModel.id, movieApiModel.poster_path, isSubscribed)
+
+            viewModel.insertMovieDao(movieDetail)
         }
 
         viewModel.getMovieDao(movieId).observe(viewLifecycleOwner) {
@@ -138,7 +136,6 @@ class MovieDetailFragment : Fragment() {
                 )
             }
         }
-
     }
 
     private fun setToolbarProperties(dominantColor: Int, resource: Bitmap) {
