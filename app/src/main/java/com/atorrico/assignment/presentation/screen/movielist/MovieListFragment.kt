@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.R
+import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
 import com.atorrico.assignment.databinding.FragmentMovieListBinding
 import com.atorrico.assignment.domain.model.Movie
 import com.atorrico.assignment.presentation.util.Result
@@ -19,9 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 @AndroidEntryPoint
-class MovieListFragment : Fragment(R.layout.fragment_movie_list),
-    MovieListAdapter.MovieItemListener,
-    MovieListDaoAdapter.MyMovieItemListener {
+class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
     private val viewModel: MovieListViewModel by viewModels()
     private lateinit var binding: FragmentMovieListBinding
@@ -38,14 +36,12 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),
     }
 
     private fun setupRecyclerViews() {
-        adapterMovieFavourites = MovieListDaoAdapter(this)
+        adapterMovieFavourites = MovieListDaoAdapter { navigateToMovieDetailFavourite(it) }
         binding.rvFavourites.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvFavourites.adapter = adapterMovieFavourites
 
-        adapter = MovieListAdapter(this)
-        adapter.stateRestorationPolicy =
-            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        adapter = MovieListAdapter { navigateToMovieDetail(it) }
         binding.moviesRv.layoutManager = LinearLayoutManager(requireContext())
         binding.moviesRv.adapter = adapter
     }
@@ -82,14 +78,25 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),
         }
     }
 
-    override fun onClickedMovie(movieId: Int) {
+    private fun navigateToMovieDetail(movie: Movie) {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = 175.toLong()
         }
 
         findNavController().navigate(
             R.id.action_moviesFragment_to_movieDetailFragment,
-            bundleOf("id" to movieId)
+            bundleOf("id" to movie.id)
+        )
+    }
+
+    private fun navigateToMovieDetailFavourite(movieEntityModel: MovieEntityModel) {
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = 175.toLong()
+        }
+
+        findNavController().navigate(
+            R.id.action_moviesFragment_to_movieDetailFragment,
+            bundleOf("id" to movieEntityModel.id)
         )
     }
 
@@ -97,16 +104,5 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list),
         val collapsing: View? = activity?.findViewById(R.id.collapsing_toolbar_layout)
         collapsing?.setBackgroundColor(Color.BLACK)
         collapsing?.imgToolbar?.visibility = View.GONE
-    }
-
-    override fun onClickedMovieFavourite(movieId: Int) {
-        reenterTransition = MaterialElevationScale(true).apply {
-            duration = 175.toLong()
-        }
-
-        findNavController().navigate(
-            R.id.action_moviesFragment_to_movieDetailFragment,
-            bundleOf("id" to movieId)
-        )
     }
 }
