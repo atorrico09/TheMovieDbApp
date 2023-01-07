@@ -15,7 +15,6 @@ class MovieListViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getMovieList() = liveData(Dispatchers.IO) {
-        emit(Result.Loading())
         try {
             val movieList = getMovieListUseCase().mapSuccess { it }
             emit(Result.Success(movieList))

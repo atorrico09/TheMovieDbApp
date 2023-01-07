@@ -53,12 +53,8 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     private fun setupObservers() {
         viewModel.getMovie(movieId).observe(viewLifecycleOwner) {
             when (it) {
-                is Result.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
                 is Result.Success -> {
                     bindMovie(it.data as Movie)
-                    binding.progressBar.visibility = View.GONE
                     binding.movieCl.visibility = View.VISIBLE
                 }
                 is Result.Failure -> {

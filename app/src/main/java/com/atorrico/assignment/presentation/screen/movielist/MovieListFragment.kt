@@ -50,12 +50,9 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         viewModel.getMovieList().observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
                     if (it.data != null)
                         adapter.setItems(it.data as ArrayList<Movie>)
                 }
-                is Result.Loading ->
-                    binding.progressBar.visibility = View.VISIBLE
                 is Result.Failure -> {
                     Toast.makeText(
                         requireContext(),
