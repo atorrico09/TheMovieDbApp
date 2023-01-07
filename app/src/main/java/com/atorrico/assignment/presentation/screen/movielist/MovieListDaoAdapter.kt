@@ -41,7 +41,7 @@ class MyMovieViewHolder(private val itemBinding: ItemMovieFavouriteBinding) :
         this.movie = movieEntity
 
         Glide.with(itemBinding.root)
-            .load(Constants.BASE_URL_IMAGES + movieEntity.poster_path)
+            .load(Constants.BASE_URL_IMAGES + movieEntity.posterPath)
             .into(itemBinding.imgPoster)
 
         itemBinding.root.setOnClickListener {

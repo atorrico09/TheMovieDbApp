@@ -103,7 +103,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         }
 
         viewModel.getMovieDao(movieId).observe(viewLifecycleOwner) {
-            if (it != null && it.subscribe) {
+            if (it != null && it.isSubscribed) {
                 binding.btnSuscribe.text = resources.getString(R.string.label_suscribed_text)
                 binding.btnSuscribe.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))

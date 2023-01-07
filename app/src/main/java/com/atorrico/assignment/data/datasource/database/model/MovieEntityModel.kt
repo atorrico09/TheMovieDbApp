@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class MovieEntityModel (
     @PrimaryKey
     val id: Int,
-    val poster_path: String,
-    var subscribe: Boolean
+    val posterPath: String,
+    var isSubscribed: Boolean
 )
