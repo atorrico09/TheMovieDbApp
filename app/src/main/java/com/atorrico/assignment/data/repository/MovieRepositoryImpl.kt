@@ -3,7 +3,6 @@ package com.atorrico.assignment.data.repository
 import androidx.lifecycle.LiveData
 import com.atorrico.assignment.data.datasource.api.MovieRemoteDataSource
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
-import com.atorrico.assignment.data.datasource.api.response.GetGenreResponse
 import com.atorrico.assignment.data.datasource.api.response.GetMovieResponse
 import com.atorrico.assignment.data.datasource.database.MovieDao
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
@@ -21,9 +20,6 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getMovieList(): Result<GetMovieResponse> =
         remoteDataSource.getMovieList()
-
-    override suspend fun getGenreList(): Result<GetGenreResponse> =
-        remoteDataSource.getGenreList()
 
     override fun getMovieListDao(): LiveData<List<MovieEntityModel>> =
         localDataSource.getMovieListDao()

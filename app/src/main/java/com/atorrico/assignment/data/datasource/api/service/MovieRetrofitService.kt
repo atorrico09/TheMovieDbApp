@@ -1,6 +1,5 @@
 package com.atorrico.assignment.data.datasource.api.service
 
-import com.atorrico.assignment.data.datasource.api.response.GetGenreResponse
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.api.response.GetMovieResponse
 import com.atorrico.assignment.presentation.utils.Constants.API_KEY_MOVIE_DB_APP
@@ -14,6 +13,4 @@ interface MovieRetrofitService {
     @GET("movie/{id}?api_key=$API_KEY_MOVIE_DB_APP")
     suspend fun getMovie(@Path("id") id: Int): MovieApiModel
 
-    @GET("genre/movie/list?api_key=$API_KEY_MOVIE_DB_APP")
-    suspend fun getGenreList(): GetGenreResponse
 }

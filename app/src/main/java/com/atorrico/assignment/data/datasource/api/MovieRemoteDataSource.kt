@@ -1,6 +1,5 @@
 package com.atorrico.assignment.data.datasource.api
 
-import com.atorrico.assignment.data.datasource.api.response.GetGenreResponse
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.api.response.GetMovieResponse
 import com.atorrico.assignment.data.datasource.api.service.MovieRetrofitService
@@ -15,5 +14,4 @@ class MovieRemoteDataSource @Inject constructor(
 
     suspend fun getMovie(id: Int): Result<MovieApiModel> = Result.Success (movieRetrofitService.getMovie(id))
 
-    suspend fun getGenreList(): Result<GetGenreResponse> = Result.Success(movieRetrofitService.getGenreList())
 }

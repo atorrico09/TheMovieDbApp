@@ -11,44 +11,25 @@
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 
-    <FrameLayout
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgBackdrop"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#616161"
+        android:scaleType="centerCrop" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgBackdrop"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#616161"
-            android:scaleType="centerCrop" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|bottom"
+        android:paddingStart="@dimen/horizontal_margin_default"
+        android:paddingEnd="@dimen/horizontal_margin_default"
+        android:paddingBottom="15dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="#e1f5ff"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:text="Avengers: End Game" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvGenre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|top"
-            android:layout_margin="@dimen/horizontal_margin_default"
-            android:background="@drawable/rounded_corner"
-            android:padding="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            tools:text="ACTION" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|bottom"
-            android:paddingStart="@dimen/horizontal_margin_default"
-            android:paddingEnd="@dimen/horizontal_margin_default"
-            android:paddingBottom="15dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="#e1f5ff"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="Avengers: End Game" />
-
-    </FrameLayout>
 </androidx.cardview.widget.CardView>

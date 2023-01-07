@@ -5,7 +5,6 @@ data class MovieApiModel(
     val popularity: Double,
     val vote_count: Int,
     val video: Boolean,
-//    val media_type : String,
     val id: Int,
     val adult: Boolean,
     val backdrop_path: String,
