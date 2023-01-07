@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.R
-import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.databinding.FragmentMovieListBinding
+import com.atorrico.assignment.domain.model.Movie
 import com.atorrico.assignment.presentation.util.Result
 import com.atorrico.assignment.presentation.util.autoCleared
 import com.google.android.material.transition.MaterialElevationScale
@@ -64,12 +64,16 @@ class MovieListFragment : Fragment(), MovieListAdapter.MovieItemListener,
                 is Result.Success -> {
                     binding.progressBar.visibility = View.GONE
                     if (it.data != null)
-                        adapter.setItems(it.data as ArrayList<MovieApiModel>)
+                        adapter.setItems(it.data as ArrayList<Movie>)
                 }
                 is Result.Loading ->
                     binding.progressBar.visibility = View.VISIBLE
                 is Result.Failure -> {
-                    Toast.makeText(requireContext(), it.exception.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        it.exception?.message ?: getString(R.string.error_default_message),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

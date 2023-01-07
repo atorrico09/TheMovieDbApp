@@ -12,9 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.atorrico.assignment.R
-import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
 import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
+import com.atorrico.assignment.domain.model.Movie
 import com.atorrico.assignment.presentation.util.Constants.BASE_URL_IMAGES
 import com.atorrico.assignment.presentation.util.Result
 import com.atorrico.assignment.presentation.util.autoCleared
@@ -68,25 +68,25 @@ class MovieDetailFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Result.Success -> {
-                    bindMovie(it.data as MovieApiModel)
+                    bindMovie(it.data as Movie)
                     binding.progressBar.visibility = View.GONE
                     binding.movieCl.visibility = View.VISIBLE
                 }
                 is Result.Failure -> {
-                    Toast.makeText(requireContext(), it.exception.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it.exception?.message ?: getString(R.string.error_default_message), Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
-    private fun bindMovie(movieApiModel: MovieApiModel) {
-        binding.tvTitle.text = movieApiModel.title
-        binding.tvYear.text = getYear(movieApiModel.release_date)
-        binding.tvOverview.text = movieApiModel.overview
+    private fun bindMovie(movie: Movie) {
+        binding.tvTitle.text = movie.title
+        binding.tvYear.text = getYear(movie.releaseDate)
+        binding.tvOverview.text = movie.overview
 
         Glide.with(this)
             .asBitmap()
-            .load(BASE_URL_IMAGES + movieApiModel.poster_path)
+            .load(BASE_URL_IMAGES + movie.posterPath)
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     val dominantColor = getDominantColor(resource)
@@ -104,7 +104,7 @@ class MovieDetailFragment : Fragment() {
                 isSubscribed = true
 
             val movieDetail =
-                MovieEntityModel(movieApiModel.id, movieApiModel.poster_path, isSubscribed)
+                MovieEntityModel(movie.id, movie.posterPath, isSubscribed)
 
             viewModel.insertMovieDao(movieDetail)
         }

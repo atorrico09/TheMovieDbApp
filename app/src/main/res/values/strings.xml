@@ -6,5 +6,6 @@
     <string name="label_suscribed_text">SUBSCRIBED</string>
     <string name="label_all_text">ALL</string>
     <string name="label_overview_text">OVERVIEW</string>
+    <string name="error_default_message">An unexpected error has occurred</string>
 
 </resources>

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.databinding.ItemMovieBinding
+import com.atorrico.assignment.domain.model.Movie
 import com.atorrico.assignment.presentation.util.Constants.BASE_URL_IMAGES
 import com.bumptech.glide.Glide
 import java.util.*
@@ -18,9 +18,9 @@ class MovieListAdapter(private val listener: MovieItemListener) :
         fun onClickedMovie(movieId: Int)
     }
 
-    private val items = ArrayList<MovieApiModel>()
+    private val items = ArrayList<Movie>()
 
-    fun setItems(items: ArrayList<MovieApiModel>) {
+    fun setItems(items: ArrayList<Movie>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
@@ -44,19 +44,19 @@ class MovieViewHolder(
 ) : RecyclerView.ViewHolder(itemBinding.root),
     View.OnClickListener {
 
-    private lateinit var movie: MovieApiModel
+    private lateinit var movie: Movie
 
     init {
         itemBinding.root.setOnClickListener(this)
     }
 
     @SuppressLint("SetTextI18n")
-    fun bind(item: MovieApiModel) {
+    fun bind(item: Movie) {
         this.movie = item
         itemBinding.tvTitle.text = item.title
 
         Glide.with(itemBinding.root)
-            .load(BASE_URL_IMAGES + item.backdrop_path)
+            .load(BASE_URL_IMAGES + item.backdropPath)
             .into(itemBinding.imgBackdrop)
     }
 
