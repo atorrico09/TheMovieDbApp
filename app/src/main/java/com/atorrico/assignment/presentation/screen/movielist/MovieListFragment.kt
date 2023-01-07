@@ -2,9 +2,7 @@ package com.atorrico.assignment.presentation.screen.movielist
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -16,30 +14,24 @@ import com.atorrico.assignment.R
 import com.atorrico.assignment.databinding.FragmentMovieListBinding
 import com.atorrico.assignment.domain.model.Movie
 import com.atorrico.assignment.presentation.util.Result
-import com.atorrico.assignment.presentation.util.autoCleared
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
 
 @AndroidEntryPoint
-class MovieListFragment : Fragment(), MovieListAdapter.MovieItemListener,
+class MovieListFragment : Fragment(R.layout.fragment_movie_list),
+    MovieListAdapter.MovieItemListener,
     MovieListDaoAdapter.MyMovieItemListener {
 
-    private var binding: FragmentMovieListBinding by autoCleared()
     private val viewModel: MovieListViewModel by viewModels()
+    private lateinit var binding: FragmentMovieListBinding
     private lateinit var adapter: MovieListAdapter
     private lateinit var adapterMovieFavourites: MovieListDaoAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMovieListBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMovieListBinding.bind(view)
+
         setToolbarProperties()
         setupRecyclerViews()
         setupObservers()

@@ -4,9 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,7 +15,6 @@ import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
 import com.atorrico.assignment.domain.model.Movie
 import com.atorrico.assignment.presentation.util.Constants.BASE_URL_IMAGES
 import com.atorrico.assignment.presentation.util.Result
-import com.atorrico.assignment.presentation.util.autoCleared
 import com.atorrico.assignment.presentation.util.getDominantColor
 import com.atorrico.assignment.presentation.util.getYear
 import com.bumptech.glide.Glide
@@ -30,12 +27,11 @@ import kotlinx.android.synthetic.main.fragment_movie_detail.*
 import kotlinx.android.synthetic.main.fragment_movie_detail.view.*
 import kotlin.properties.Delegates
 
-
 @AndroidEntryPoint
-class MovieDetailFragment : Fragment() {
+class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
 
-    private var binding: FragmentMovieDetailBinding by autoCleared()
     private val viewModel: MovieDetailViewModel by viewModels()
+    private lateinit var binding: FragmentMovieDetailBinding
     private var movieId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,16 +42,9 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMovieDetailBinding.bind(view)
 
         movieId = arguments?.getInt("id") ?: 0
         setupObservers()
@@ -73,7 +62,11 @@ class MovieDetailFragment : Fragment() {
                     binding.movieCl.visibility = View.VISIBLE
                 }
                 is Result.Failure -> {
-                    Toast.makeText(requireContext(), it.exception?.message ?: getString(R.string.error_default_message), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        it.exception?.message ?: getString(R.string.error_default_message),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
