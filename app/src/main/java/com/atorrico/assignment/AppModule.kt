@@ -5,6 +5,7 @@ import com.atorrico.assignment.data.datasource.api.MovieRemoteDataSource
 import com.atorrico.assignment.data.datasource.api.service.MovieRetrofitService
 import com.atorrico.assignment.data.datasource.database.MovieDao
 import com.atorrico.assignment.data.datasource.database.MovieDatabase
+import com.atorrico.assignment.data.datasource.util.ApiResultAdapterFactory
 import com.atorrico.assignment.data.repository.MovieRepositoryImpl
 import com.atorrico.assignment.domain.repository.MovieRepository
 import com.atorrico.assignment.presentation.util.Constants
@@ -29,6 +30,7 @@ object AppModule {
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(ApiResultAdapterFactory())
             .build()
 
     @Provides
