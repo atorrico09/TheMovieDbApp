@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
 import com.atorrico.assignment.databinding.ItemMovieFavouriteBinding
-import com.atorrico.assignment.presentation.utils.Constants
+import com.atorrico.assignment.presentation.util.Constants
 import com.bumptech.glide.Glide
 
 class MovieListDaoAdapter(private val listener: MyMovieItemListener) :

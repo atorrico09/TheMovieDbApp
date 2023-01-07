@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.api.response.GetMovieResponse
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
-import com.atorrico.assignment.presentation.utils.Result
+import com.atorrico.assignment.presentation.util.Result
 
 interface MovieRepository {
 

@@ -7,7 +7,7 @@ import com.atorrico.assignment.data.datasource.api.response.GetMovieResponse
 import com.atorrico.assignment.data.datasource.database.MovieDao
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
 import com.atorrico.assignment.domain.repository.MovieRepository
-import com.atorrico.assignment.presentation.utils.Result
+import com.atorrico.assignment.presentation.util.Result
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(

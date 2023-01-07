@@ -3,7 +3,7 @@ package com.atorrico.assignment.data.datasource.api
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.api.response.GetMovieResponse
 import com.atorrico.assignment.data.datasource.api.service.MovieRetrofitService
-import com.atorrico.assignment.presentation.utils.Result
+import com.atorrico.assignment.presentation.util.Result
 import javax.inject.Inject
 
 class MovieRemoteDataSource @Inject constructor(

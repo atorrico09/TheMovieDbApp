@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.databinding.ItemMovieBinding
-import com.atorrico.assignment.presentation.utils.Constants.BASE_URL_IMAGES
+import com.atorrico.assignment.presentation.util.Constants.BASE_URL_IMAGES
 import com.bumptech.glide.Glide
 import java.util.*
 

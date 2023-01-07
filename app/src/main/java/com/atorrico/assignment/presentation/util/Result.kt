@@ -1,4 +1,4 @@
-package com.atorrico.assignment.presentation.utils
+package com.atorrico.assignment.presentation.util
 
 sealed class Result<out T>() {
     class Loading<out T> : Result<T>()

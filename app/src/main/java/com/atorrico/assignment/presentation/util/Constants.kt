@@ -1,4 +1,4 @@
-package com.atorrico.assignment.presentation.utils
+package com.atorrico.assignment.presentation.util
 
 import com.atorrico.assignment.BuildConfig
 

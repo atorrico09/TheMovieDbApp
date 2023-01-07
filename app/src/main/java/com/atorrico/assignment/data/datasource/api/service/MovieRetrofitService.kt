@@ -2,7 +2,7 @@ package com.atorrico.assignment.data.datasource.api.service
 
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.api.response.GetMovieResponse
-import com.atorrico.assignment.presentation.utils.Constants.API_KEY_MOVIE_DB_APP
+import com.atorrico.assignment.presentation.util.Constants.API_KEY_MOVIE_DB_APP
 import retrofit2.http.GET
 import retrofit2.http.Path
 

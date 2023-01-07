@@ -1,4 +1,4 @@
-package com.atorrico.assignment.presentation.utils
+package com.atorrico.assignment.presentation.util
 
 import android.graphics.Bitmap
 import android.graphics.Color

@@ -1,4 +1,4 @@
-package com.atorrico.assignment.presentation.utils
+package com.atorrico.assignment.presentation.util
 
 /*
  * Copyright (C) 2018 The Android Open Source Project

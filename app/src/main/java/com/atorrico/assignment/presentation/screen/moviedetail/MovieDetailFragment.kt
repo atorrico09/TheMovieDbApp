@@ -15,11 +15,11 @@ import com.atorrico.assignment.R
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.data.datasource.database.model.MovieEntityModel
 import com.atorrico.assignment.databinding.FragmentMovieDetailBinding
-import com.atorrico.assignment.presentation.utils.Constants.BASE_URL_IMAGES
-import com.atorrico.assignment.presentation.utils.Result
-import com.atorrico.assignment.presentation.utils.autoCleared
-import com.atorrico.assignment.presentation.utils.getDominantColor
-import com.atorrico.assignment.presentation.utils.getYear
+import com.atorrico.assignment.presentation.util.Constants.BASE_URL_IMAGES
+import com.atorrico.assignment.presentation.util.Result
+import com.atorrico.assignment.presentation.util.autoCleared
+import com.atorrico.assignment.presentation.util.getDominantColor
+import com.atorrico.assignment.presentation.util.getYear
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition

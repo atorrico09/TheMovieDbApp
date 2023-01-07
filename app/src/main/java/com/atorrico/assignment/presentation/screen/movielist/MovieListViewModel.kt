@@ -3,8 +3,8 @@ package com.atorrico.assignment.presentation.screen.movielist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.atorrico.assignment.domain.usecase.GetMovieListUseCase
-import com.atorrico.assignment.presentation.utils.Result
-import com.atorrico.assignment.presentation.utils.mapSuccess
+import com.atorrico.assignment.presentation.util.Result
+import com.atorrico.assignment.presentation.util.mapSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject

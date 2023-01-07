@@ -7,7 +7,7 @@ import com.atorrico.assignment.data.datasource.database.MovieDao
 import com.atorrico.assignment.data.datasource.database.MovieDatabase
 import com.atorrico.assignment.data.repository.MovieRepositoryImpl
 import com.atorrico.assignment.domain.repository.MovieRepository
-import com.atorrico.assignment.presentation.utils.Constants
+import com.atorrico.assignment.presentation.util.Constants
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

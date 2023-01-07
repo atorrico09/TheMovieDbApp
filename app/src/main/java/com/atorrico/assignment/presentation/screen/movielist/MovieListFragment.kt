@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.atorrico.assignment.R
 import com.atorrico.assignment.data.datasource.api.model.MovieApiModel
 import com.atorrico.assignment.databinding.FragmentMovieListBinding
-import com.atorrico.assignment.presentation.utils.Result
-import com.atorrico.assignment.presentation.utils.autoCleared
+import com.atorrico.assignment.presentation.util.Result
+import com.atorrico.assignment.presentation.util.autoCleared
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.view.*
