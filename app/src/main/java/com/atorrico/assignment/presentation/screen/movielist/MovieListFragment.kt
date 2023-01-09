@@ -42,8 +42,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
         binding.rvFavourites.adapter = adapterMovieFavourites
 
         adapter = MovieListAdapter { navigateToMovieDetail(it) }
-        binding.moviesRv.layoutManager = LinearLayoutManager(requireContext())
-        binding.moviesRv.adapter = adapter
+        binding.rvMovieList.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMovieList.adapter = adapter
     }
 
     private fun setupObservers() {
